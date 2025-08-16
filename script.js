@@ -1,44 +1,42 @@
-// Load tasks from localStorage when the page opens
-window.onload = function() {
-  if(localStorage.getItem("tasks")){
-    document.getElementById("taskList").innerHTML = localStorage.getItem("tasks");
-  }
-}
+let tasks = {};
 
-// Add a new task
 function addTask() {
-  let taskInput = document.getElementById("taskInput").value;
-  let dateInput = document.getElementById("dateInput").value;
+  const taskInput = document.getElementById("taskInput");
+  const dateInput = document.getElementById("dateInput");
+  const task = taskInput.value.trim();
+  const date = dateInput.value;
 
-  if (taskInput === "" || dateInput === "") {
-    alert("Please enter a task and select a date.");
+  if (task === "" || date === "") {
+    alert("Please enter task and date!");
     return;
   }
 
-  let li = document.createElement("li");
-  li.innerHTML = `
-    <div class="task-info">
-      <span>${taskInput}</span>
-      <span class="due-date">Due: ${dateInput}</span>
-    </div>
-    <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
-  `;
+  if (!tasks[date]) {
+    tasks[date] = [];
+  }
 
-  document.getElementById("taskList").appendChild(li);
+  tasks[date].push(task);
+  taskInput.value = "";
+  dateInput.value = "";
 
-  saveTasks();
-
-  document.getElementById("taskInput").value = "";
-  document.getElementById("dateInput").value = "";
+  displayTasks();
 }
 
-// Delete a task
-function deleteTask(btn) {
-  btn.parentElement.remove();
-  saveTasks();
-}
+function displayTasks() {
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = "";
 
-// Save tasks in localStorage
-function saveTasks() {
-  localStorage.setItem("tasks", document.getElementById("taskList").innerHTML);
+  for (let date in tasks) {
+    let dateHeader = document.createElement("div");
+    dateHeader.classList.add("task-date");
+    dateHeader.textContent = `📅 ${date}`;
+    taskList.appendChild(dateHeader);
+
+    tasks[date].forEach((task) => {
+      let taskItem = document.createElement("div");
+      taskItem.classList.add("task-item");
+      taskItem.textContent = task;
+      taskList.appendChild(taskItem);
+    });
+  }
 }

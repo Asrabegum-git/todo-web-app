@@ -4,10 +4,19 @@ function addTask() {
 
   if (taskInput.value.trim() === "") return;
 
+  // Get current date
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
   const li = document.createElement("li");
 
   li.innerHTML = `
-    <span onclick="toggleTask(this)">${taskInput.value}</span>
+    <span class="task-text" onclick="toggleTask(this)">${taskInput.value}</span>
+    <span class="task-date">${dateStr}</span>
     <button onclick="deleteTask(this)">❌</button>
   `;
 

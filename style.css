@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background: #ff9966;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,100 +8,76 @@ body {
   margin: 0;
 }
 
-.app {
-  background: white;
+.container {
+  background: #fff;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 320px;
   text-align: center;
 }
 
-h1 {
+h2 {
   margin-bottom: 20px;
-  color: #333;
 }
 
-.input-box {
-  display: flex;
-  gap: 10px;
-}
-
-.input-box input {
-  flex: 1;
+input, button {
   padding: 10px;
-  border-radius: 8px;
+  margin: 5px 0;
   border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-.input-box button {
-  padding: 10px 15px;
-  background: #2575fc;
-  border: none;
-  border-radius: 8px;
-  color: white;
+input[type="text"],
+input[type="date"] {
+  width: 70%;
+}
+
+button {
   cursor: pointer;
 }
 
-.input-box button:hover {
-  background: #1a5fd0;
+.add-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  width: 100%;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-left: 10px;
 }
 
 ul {
   list-style: none;
   padding: 0;
   margin-top: 20px;
-  max-height: 200px;
-  overflow-y: auto;
+  text-align: left;
 }
 
 li {
-  background: #f0f0f0;
-  margin-bottom: 10px;
   padding: 10px;
-  border-radius: 8px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-bottom: 8px;
+  border-radius: 6px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
 }
 
-li.completed {
-  text-decoration: line-through;
-  background: #d4f7d4;
-  color: gray;
+.task-info {
+  display: flex;
+  flex-direction: column;
 }
 
-.task-text {
-  flex: 1;
-  cursor: pointer;
-}
-
-.task-date {
+.due-date {
   font-size: 12px;
-  color: gray;
-  margin-left: 10px;
-}
-
-li button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: red;
-  margin-left: 10px;
-}
-
-#clearBtn {
-  margin-top: 15px;
-  width: 100%;
-  padding: 10px;
-  background: red;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-#clearBtn:hover {
-  background: darkred;
+  color: #666;
 }

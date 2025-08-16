@@ -1,37 +1,44 @@
+// Load tasks from localStorage when the page opens
+window.onload = function() {
+  if(localStorage.getItem("tasks")){
+    document.getElementById("taskList").innerHTML = localStorage.getItem("tasks");
+  }
+}
+
+// Add a new task
 function addTask() {
-  const taskInput = document.getElementById("taskInput");
-  const taskList = document.getElementById("taskList");
+  let taskInput = document.getElementById("taskInput").value;
+  let dateInput = document.getElementById("dateInput").value;
 
-  if (taskInput.value.trim() === "") return;
+  if (taskInput === "" || dateInput === "") {
+    alert("Please enter a task and select a date.");
+    return;
+  }
 
-  // Get current date
-  const now = new Date();
-  const dateStr = now.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric"
-  });
-
-  const li = document.createElement("li");
-
+  let li = document.createElement("li");
   li.innerHTML = `
-    <span class="task-text" onclick="toggleTask(this)">${taskInput.value}</span>
-    <span class="task-date">${dateStr}</span>
-    <button onclick="deleteTask(this)">❌</button>
+    <div class="task-info">
+      <span>${taskInput}</span>
+      <span class="due-date">Due: ${dateInput}</span>
+    </div>
+    <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
   `;
 
-  taskList.appendChild(li);
-  taskInput.value = "";
+  document.getElementById("taskList").appendChild(li);
+
+  saveTasks();
+
+  document.getElementById("taskInput").value = "";
+  document.getElementById("dateInput").value = "";
 }
 
-function toggleTask(span) {
-  span.parentElement.classList.toggle("completed");
+// Delete a task
+function deleteTask(btn) {
+  btn.parentElement.remove();
+  saveTasks();
 }
 
-function deleteTask(button) {
-  button.parentElement.remove();
-}
-
-function clearAll() {
-  document.getElementById("taskList").innerHTML = "";
+// Save tasks in localStorage
+function saveTasks() {
+  localStorage.setItem("tasks", document.getElementById("taskList").innerHTML);
 }
